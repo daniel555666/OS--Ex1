@@ -17,18 +17,14 @@ int main(int argc, char const *argv[])
     {
         // printf("yes master>$ "); 
         printf("%s>", location);
-        scanf("%s", comand);
+        gets(comand);
 
-        if (strncmp(comand, "ECHO", 5) == 0)
+        if (strncmp(comand, "ECHO ", 5) == 0)
         {
-            printf("\nDANIEL");
-            // printf("%d\n", len);
-            for (int i = 4; i < 50 /*&& comand[i] != '\0'*/; i++)
-            {
-                
+            for (int i = 5; i < lenght && comand[i] != '\0'; i++)
+            {    
                 printf("%c", comand[i]);
             }
-
             printf("\n");
         }
     }
