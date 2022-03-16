@@ -2,7 +2,7 @@
 #include<string.h>
 #include<unistd.h>
 
-#define lenght 30
+#define lenght 50
 
 int main(int argc, char const *argv[])
 {
