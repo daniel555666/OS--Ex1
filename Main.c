@@ -70,6 +70,10 @@ int main(int argc, char const *argv[])
         {
         
         }
+        else if (strncmp(command, "DELETE ", 7) == 0)
+        {
+            unlink(&(command[7]));
+        }
         else
         {
             //system(command);
@@ -83,8 +87,7 @@ int main(int argc, char const *argv[])
             if (check==0){
                 char str1[lenght]="/bin/??";
                 strcat(str1,command);
-                printf("cdddass");
-                execlp(command,command,NULL);
+                execlp(str1,command,NULL);
             }
             wait();
         }
