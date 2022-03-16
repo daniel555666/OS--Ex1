@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <dirent.h>
 
-#define lenght 50
+#define lenght 100
 
 void printDir()
 {
@@ -74,8 +74,22 @@ int main(int argc, char const *argv[])
         {
             //system(command);
             // system היא פונקצית קריאה למערכת
-            int chek = fork();
+
+            int check = fork();
+            if(check<0){
+                printf("Erro Somthing Bad Happened :(\n");
+                return 1;
+            }
+            if (check==0){
+                char str1[lenght]="/bin/??";
+                strcat(str1,command);
+                printf("cdddass");
+                execlp(command,command,NULL);
+            }
+            wait();
         }
+            
+        
     }
     return 0;
 }
