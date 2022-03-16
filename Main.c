@@ -1,4 +1,5 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include<string.h>
 #include<unistd.h>
 #include<dirent.h>
@@ -8,37 +9,42 @@
 
 void printDir(){
     DIR * dir;
-    struct dirnet *sdir;
+    struct dirent *sdir;
      dir=opendir(".");
      if(dir==NULL){
          printf("Erro Somthing Bad Happened :(\n");
          return;
      }
-    while((sdir=readdir(sdir))!=NULL){
-        printf("%s/t", sdir->d_name);
-
+    while((sdir = readdir(dir)) != NULL){
+        if (sdir->d_name[0] != '.')
+        {
+            printf("%s\t", sdir->d_name);
+        }
     }
-    printf("/n");
+    printf("\n");
     closedir(dir);
 
 
 }
-
-int main(int argc, char const *argv[])
+void updateLocation(char* location)
 {
-    char command[lenght];
-    char location[lenght];
     if(getcwd(location, lenght) == NULL)
     {
         printf("Erro Somthing Bad Happened :(\n");
         return 1;
     }
+}
+int main(int argc, char const *argv[])
+{
+    char command[lenght];
+    char location[lenght];
+    
     while (strcmp(command, "EXIT"))
     {
+        updateLocation(location);
         // printf("yes master>$ "); 
         printf("%s>", location);
         gets(command);
-
         if (strncmp(command, "ECHO ", 5) == 0)
         {
             for (int i = 5; i < lenght && command[i] != '\0'; i++)
@@ -49,6 +55,19 @@ int main(int argc, char const *argv[])
         }
         else if(strcmp(command,"DIR")==0){
             printDir();
+        }
+        else if(strncmp(command,"CD ", 3)==0){
+            if (chdir(&(command[3])) != 0)
+            {
+                printf("Erro Somthing Bad Happened :(\n");
+                return 1;
+            }
+            // chdir היא פונקצית קריאה למערכת
+        }
+        else
+        {
+            system(command);
+            // system היא פונקצית קריאה למערכת
         }
     }
     return 0;
