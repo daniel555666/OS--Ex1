@@ -83,7 +83,6 @@ int main(int argc, char const *argv[])
             if (check==0){
                 char str1[lenght]="/bin/??";
                 strcat(str1,command);
-                printf("cdddass");
                 execlp(command,command,NULL);
             }
             wait();
