@@ -1,4 +1,7 @@
-
+/** מגישים
+* דביר גב 209530583
+* דניאל זקן 207296989
+*/
 #include <string.h>
 #include <unistd.h>
 #include <dirent.h>
