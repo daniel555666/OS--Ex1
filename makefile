@@ -1,6 +1,6 @@
 CC = gcc
 FLAGS= -Wall -Werror -g
-add: main run
+all: main  server 
 run: Main
 	./$^
 main: Main.o client.o
@@ -10,4 +10,4 @@ server: server.o
 %.o: %.c
 	$(CC) -c $< -o $@
 clean:
-	rm *.o Main
+	rm *.o Main server
