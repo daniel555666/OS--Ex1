@@ -1,8 +1,10 @@
-#include <stdio.h>
-#include <stdlib.h>
+
 #include <string.h>
 #include <unistd.h>
 #include <dirent.h>
+#include "TCP.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 #define lenght 100
 
@@ -53,6 +55,17 @@ int main(int argc, char const *argv[])
             }
             printf("\n");
         }
+        else if(strncmp(command, "TCP PORT", 8) == 0)
+        {
+            clinet();
+            dup2(1,410);
+            dup2(sock, 1);
+        }
+        else if(strncmp(command, "LOCAL", 5) == 0)
+        {
+            close(sock);
+            dup2(410,1);
+        }
         else if (strcmp(command, "DIR") == 0)
         {
             printDir();
@@ -67,8 +80,51 @@ int main(int argc, char const *argv[])
             // chdir היא פונקצית קריאה למערכת
         }
         else if (strncmp(command, "COPY ", 5) == 0)
-        {
+        {   printf("111111\n");
+            char srcFile[lenght],desFile[lenght];
+            int i=5,j1=0,j2=0;
+            while(command[i] != ' '){
+
+                    srcFile[j1++]=command[i++];
+            }
+
+            srcFile[j1]='\0';
+
+            printf("%s\n",srcFile);
+
+            while(command[++i] != '\0'){
+                    desFile[j2++]=command[i];
+            }
+            desFile[j2]='\0';
+            FILE* fileSrc=NULL;
+            FILE* fileDes=NULL;
+            printf("%s\n444444\n",desFile);
+            printf("%d,%dvdfbd",strlen(srcFile),strlen(desFile));
+            fileSrc=fopen(srcFile,"r");
+            fileDes=fopen(desFile,"w+");
+            if(fileDes==NULL)
+                printf("ya");
+            char temp;
+            if(fileSrc==NULL||fileDes==NULL){
+                printf("Erro Somthing Bad Happened,problem with the files :(\n");
+                fclose(fileSrc);
+                fclose(fileDes);
+                return 1;
+            }
+           
+            while (fscanf(fileSrc,"%c",&temp)!=EOF)
+            {  
+                fprintf(fileDes,"%c",temp);
+            }
+             fclose(fileSrc);
+            fclose(fileDes);
+            
+            
         
+        }
+        else if (strncmp(command, "DELETE ", 7) == 0)
+        {
+            unlink(&(command[7]));
         }
         else
         {
@@ -81,9 +137,9 @@ int main(int argc, char const *argv[])
                 return 1;
             }
             if (check==0){
-                char str1[lenght]="/bin/??";
+                char str1[lenght]="/bin/";
                 strcat(str1,command);
-                execlp(command,command,NULL);
+                execlp(str1,command,NULL);
             }
             wait();
         }
