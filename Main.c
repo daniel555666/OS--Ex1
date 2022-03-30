@@ -1,4 +1,7 @@
-
+/** מגישים
+* דביר גב 209530583
+* דניאל זקן 207296989
+*/
 #include <string.h>
 #include <unistd.h>
 #include <dirent.h>
@@ -55,17 +58,17 @@ int main(int argc, char const *argv[])
             }
             printf("\n");
         }
-        // else if(strncmp(command, "TCP PORT", 8) == 0)
-        // {
-        //     clinet();
-        //     dup2(1,410);
-        //     dup2(sock, 1);
-        // }
-        // else if(strncmp(command, "LOCAL", 5) == 0)
-        // {
-        //     close(sock);
-        //     dup2(410,1);
-        // }
+        else if(strncmp(command, "TCP PORT", 8) == 0)
+        {
+            clinet();
+            dup2(1,410);
+            dup2(sock, 1);
+        }
+        else if(strncmp(command, "LOCAL", 5) == 0)
+        {
+            close(sock);
+            dup2(410,1);
+        }
         else if (strcmp(command, "DIR") == 0)
         {
             printDir();
